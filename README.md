@@ -23,7 +23,7 @@ but a google cloud project OAuth 2.0 authorization file is needed, you can get i
 
 you can now run 'python main.py' and move on to the frontend UI
 
-cd frontend
+cd frontend/calley-ui
 npm install
 npm run dev
 

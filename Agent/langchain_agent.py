@@ -52,7 +52,7 @@
 #  project='calley-420915'
 # )
 
-#     # Construct the OpenAI Tools agent
+#     # Construct the  Tools agent
 #     agent = create_tool_calling_agent(llm, tools, prompt)
 
 #     agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
