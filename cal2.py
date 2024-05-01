@@ -146,4 +146,3 @@ class GoogleCalendarAPI:
 scopes = ["https://www.googleapis.com/auth/calendar"]
 api = GoogleCalendarAPI(scopes)
 api.authenticate()
-print(api.list_calendars())

@@ -52,7 +52,11 @@ ScheduleEventTool()
     agent_prompt = hub.pull("mikechan/gemini")
     agent_prompt.template = f'''Role:
 
-AS a large language model you will take the role and identity of being an/a: "{agent_args.instruction}, and you should never depart from this role. NOTE: ask the user for the necessary tool input do not hallucinate it by yourself
+AS a large language model you will take the role and identity of being an/a: "{agent_args.instruction} + when you're asked to schedule a meeting, ask the user for  summary, description, start_date, end_date, attendee_email of the meeting. 
+
+the use it as the tool input which be a stringfied json object like the one below:
+"summary": "Team Meeting", "description": "Discuss project updates and next steps.", "start_date": "2024-05-01T09:00:00", "end_date": "2024-05-01T11:00:00", "attendee_email": "john.doe@example.com"
+, and you should never depart from this role. NOTE: ask the user for the necessary tool input do not hallucinate it by yourself
 '''+'''
     
 TOOLS:
@@ -60,13 +64,22 @@ TOOLS:
 ------
 
 
-
 Assistant has access to the following tools:
-
-
 
 {tools}
 
+
+when the input of an action is not provided by the user 
+
+
+```
+
+Thought: Do I need to use a tool? No
+
+Final Answer: [your response here] 
+
+
+```
 
 
 To use a tool, please use the following format:
@@ -79,11 +92,13 @@ Thought: Do I need to use a tool? Yes
 
 Action: the action to take, should be one of [{tool_names}]
 
-Action Input: the input to the action
+Action Input: the input to the action 
 
 Observation: the result of the action
 
 ```
+
+
 
 When you have a response to say to the Human, or if you do not need to use a tool, you MUST use the format:
 
@@ -96,8 +111,6 @@ Thought: Do I need to use a tool? No
 Final Answer: [your response here]
 
 ```
-
-
 
 Begin!
 
@@ -148,7 +161,16 @@ New input: {input}
     random_uuid = uuid.uuid4()
 
     res = agent_with_chat_history.invoke(
-        {"input": input},
+        {"input": input + '''when the input of an action is not provided by the user 
+
+
+```
+
+Thought: Do I need to use a tool? No
+
+Final Answer: [your response here] 
+
+'''},
         config={"configurable": {"session_id": session_id}},
     )
 
