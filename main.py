@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 from models.models import User
 from Routes.bot import router as bot_router
 from Routes.embedding_route import router as embedding_router
-from Routes.google_auth import router as google_auth_router
+
 from typing import Annotated
 from auth.auth_bearer import get_current_user
 from pydantic import BaseModel
@@ -136,7 +136,7 @@ async def read_users_me(current_user = Depends(get_current_user)):
 
 app.include_router(bot_router)
 app.include_router(embedding_router)
-app.include_router(google_auth_router)
+
 
 if __name__ == "__main__":
     Base.metadata.create_all(bind=engine)
