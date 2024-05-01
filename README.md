@@ -1,5 +1,5 @@
 
-## calley is an AI Scheduling and calender management assistant that uses Google Gemini-pro language model for intelligent interaction. 
+# calley is an AI Scheduling and calender management assistant that uses Google Gemini-pro language model for intelligent interaction. 
 
 ## Getting Started
 
