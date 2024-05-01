@@ -22,8 +22,8 @@ from Agent.tools.calender_tool import CalenderTool, ScheduleEventTool
 import uuid
 
 
-os.environ["GOOGLE_API_KEY"] = "AIzaSyDqnLVkETKo7wQgPXN56QON3AGEm4qvTTU"
-os.environ["TAVILY_API_KEY"] = "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"
+os.environ["GOOGLE_API_KEY"] = ""
+os.environ["TAVILY_API_KEY"] = "-"
 memory = ChatMessageHistory(session_id="test-session")
 
 
