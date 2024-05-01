@@ -21,9 +21,7 @@ class EmbeddingsSchema(BaseModel):
     doc_source: str
     doc_data: str
 
-    @validator('document_name', pre=True, always=True)
-    def set_document_name(cls, v):
-        return v or generate_random_string()
+   
 
     @validator('unique_id', pre=True, always=True)
     def set_unique_id(cls, v):
