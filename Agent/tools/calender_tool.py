@@ -12,7 +12,7 @@ class CalenderTool(BaseTool):
     description = "useful for when you need to fetch the events on my calendar"
 
     def _run(self, query: str):
-        return main()
+        return api.list_calendars()
 
     async def _arun(self, query: str):
         raise NotImplementedError

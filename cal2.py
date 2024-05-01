@@ -32,10 +32,41 @@ class GoogleCalendarAPI:
                 pickle.dump(self.creds, token)
 
     def list_calendars(self):
+        """
+        Lists all events by authenticated user.
+
+        Returns:
+            list: A list of calendar events.
+        """
         service = build("calendar", "v3", credentials=self.creds)
-        calendar_list = service.calendarList().list().execute().get("items", [])
-        for calendar in calendar_list:
-            print(calendar["summary"])
+
+        now = datetime.datetime.utcnow().isoformat() + "Z"
+        print("Getting the upcoming 10 events")
+        events_result = (
+            service.events()
+            .list(
+                calendarId="primary",
+                timeMin=now,
+                maxResults=10,
+                singleEvents=True,
+                orderBy="startTime",
+            )
+            .execute()
+        )
+        events = events_result.get("items", [])
+
+        if not events:
+            print("No upcoming events found.")
+            return []
+
+        result = []
+        for event in events:
+            start = event["start"].get("dateTime", event["start"].get("date"))
+            print(start, event["summary"])
+            result.append({"start": start, "summary": event["summary"]})
+
+        return result
+
 
     def create_calendar(self, summary, timezone):
         service = build("calendar", "v3", credentials=self.creds)
@@ -115,3 +146,4 @@ class GoogleCalendarAPI:
 scopes = ["https://www.googleapis.com/auth/calendar"]
 api = GoogleCalendarAPI(scopes)
 api.authenticate()
+print(api.list_calendars())
