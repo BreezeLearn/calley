@@ -19,7 +19,6 @@ def gemini_embedding(text):
     retriever = db.as_retriever()
 
 
-
     tool = create_retriever_tool(
         retriever,
         "search_state_of_union",
